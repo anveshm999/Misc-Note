@@ -1,0 +1,68 @@
+-----Hibernate----
+
+Low level JDBC code is eliminated
+
+Added hibernate jar files from course and mysql jdbc connector jar from open source
+
+Entity class - Java class mapped to a data base table ( like a value object POJO class ) but adding special annotations to them
+
+
+To map Normal Java class to data base table we have following options:
+
+1. XML config ( Legacy )
+2. Java annotations ( new, prefered )
+
+
+Java annotations method steps:
+
+step1: map java class to database table
+step2: map fields to database columns
+
+Session factory:
+				a. reads the hibernate config file
+				b. creates session objects
+				c. heavy weight object
+				d. only created once in the app
+
+Session:
+		 a. wraps a JDBC connection
+		 b. main object used to save/retrieve objects
+		 c. short-lived object
+		 d. retrieved from session-factory			
+
+
+Primary keys in hibernate: We can generate different types of auto generated values with diff options available in hibernate
+
+CRUD Operations:
+
+
+Main operation for hibernate for all CRUD operations:
+
+ - opening session factory for the class (SessionFactory sessionFactory = new Configuration()
+											.configure("hibernate.cfg.xml")
+											.addAnnotatedClass(Student.class)
+											.buildSessionFactory())
+ - getting current sessions for each session/transaction (sessionFactory.getCurrentSession())
+ - begin the transaction with the help of session (session.beginTransaction())
+ - Create/read/update/delete
+ - Commit for each transaction (session.getTransaction().commit())
+
+HQL is similar to SQL
+
+Create: creating by entering the values except primary key session.save() is used for creating row
+Read: Read single record/row by the primary key Using session.get() ,
+	  session.createQuery() is used to retrieve multiple rows/objects
+Update: object.Setter is used for single row update ,
+	 session.createQuery().executeUpdate is used to update  bulk records
+Delete: Can be done by either session.createQuery().executeUpdate by writing delete query or else directly session.delete("")
+
+For setting up log4j in the project : https://www.udemy.com/course/spring-hibernate-tutorial/learn/lecture/5835894#content
+
+
+One-to-One mappings:
+
+Cascade : Removing a data from one table that could affect data in other table.
+
+cascade types:
+
+ - 
